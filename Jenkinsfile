@@ -1,6 +1,6 @@
 def label = "kaniko-${UUID.randomUUID().toString()}"
 
-podTemplate(name: 'kaniko', label: label, yaml: """
+podTemplate(name: 'kaniko', label: kaniko, yaml: """
 kind: Pod
 metadata:
   name: kaniko
@@ -25,7 +25,7 @@ spec:
             - key: .dockerconfigjson
               path: config.json
 """) { 
-  node(label) {
+  node('kaniko') {
     stage('Build with Kaniko') {
        git 'https://github.com/richbg/docker-example.git'
         container(name: 'kaniko', shell: '/busybox/sh') {
