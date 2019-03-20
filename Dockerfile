@@ -1,6 +1,6 @@
 FROM centos
 
-RUN useradd -m jenkins
+RUN useradd -m jenkins1
 
 USER jenkins
 
