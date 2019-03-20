@@ -1,6 +1,6 @@
 FROM openjdk@sha256:3723419e5e6ce64ad9f5c7c4bfe9c6441540cd58dab37a33880c14cb4f5e3586
 
-ENV JENKINS_HOME /var/jenkins_home
+ENV JENKINS_HOME /home/jenkins
 
 ARG user=jenkins
 ARG group=jenkins
