@@ -1,4 +1,4 @@
-def label = "kaniko-${UUID.randomUUID().toString()}"
+def kaniko = "kaniko-${UUID.randomUUID().toString()}"
 
 podTemplate(name: 'kaniko', label: kaniko, yaml: """
 kind: Pod
