@@ -1,6 +1,6 @@
-//def kaniko = "kaniko-${UUID.randomUUID().toString()}"
+def label = "kaniko-${UUID.randomUUID().toString()}"
 
-podTemplate(name: 'kaniko', label: kaniko, yaml: """
+podTemplate(name: 'kaniko', label: label, yaml: """
 kind: Pod
 metadata:
   name: kaniko
@@ -14,7 +14,7 @@ spec:
     tty: true
     volumeMounts:
       - name: jenkins-docker-cfg
-        mountPath: /kaniko/.docker
+        mountPath: /root
   volumes:
   - name: jenkins-docker-cfg
     projected:
@@ -25,17 +25,16 @@ spec:
             - key: .dockerconfigjson
               path: config.json
 """) { 
-  node('kaniko') {
+  node(label) {
     stage('Build with Kaniko') {
        git 'https://github.com/richbg/docker-example.git'
         container(name: 'kaniko', shell: '/busybox/sh') {
            withEnv(['PATH+EXTRA=/busybox']) {
             sh '''#!/busybox/sh
-            /kaniko/executor --context `pwd` --destination richbg/hello-kaniko
+            /kaniko/executor --context `pwd` --insecure --skip-tls-verify --cache=true --destination richbg/hello-kaniko
             '''
            }
         }
       }
     }
   }
-
