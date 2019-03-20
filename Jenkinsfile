@@ -31,7 +31,7 @@ spec:
         container(name: 'kaniko', shell: '/busybox/sh') {
            withEnv(['PATH+EXTRA=/busybox']) {
             sh '''#!/busybox/sh
-            /kaniko/executor --context `pwd` --skip-tls-verify --cache=true --destination richbg/hello-kaniko
+            /kaniko/executor --context `pwd` --cache=true --destination richbg/hello-kaniko
             '''
            }
         }
