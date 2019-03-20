@@ -1,4 +1,4 @@
-FROM alpine:3.8
+FROM centos
 
 RUN useradd -m jenkins
 
